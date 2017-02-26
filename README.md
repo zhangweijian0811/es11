@@ -1,43 +1,21 @@
-int conta(char s[]) {
-	int i=0;
-	while (s[i]!='\0')	{
+int sottostringa(char s[], char sub[]) {
+	
+	int i=0, j=0, pos=0, set=0, quit=0;
+	
+	while(sub[j]!='\0'&& quit==0){
+		if(s[i]=='\0') quit=1;
+		if(s[i]==sub[j]){
+			if(set==0) pos=i;
+			set=1;
+			j++;
+		}
+		else { 
+			if(set==1) i--;
+			set=0; 
+			pos=-1;
+			j=0;
+		}
 		i++;
-	}
-	return i;
-}
-int palindroma(char s[]) {
-	int i, j, dim;
-	if (s[0] != '\0')
-		dim = conta(s);
-		i = 0;
-		j = dim - 1;
-		while (i < dim) {
-			if (s[i] != s[j]) {
-				if (i != dim - 1) {
-					while (i<(dim-1))
-					{
-						i++;
-						j--;
-					}
-					printf("0\n");
-					return 0;
-				}
-			}
-			else while (s[i] == s[j])
-			{
-				i++;
-				j--;
-				if (i = (dim - 1)) {
-					printf("1\n");
-					return 1;
-				}
-			}
-			i++;
-			j--; 
-		}
-	if (s[0] == '\0') {
-			printf("1\n");
-			return 1;
-		}
-	return -1;
+	}	
+	return pos;
 }
