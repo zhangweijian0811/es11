@@ -20,7 +20,7 @@ int power(int base, int exp){
 
 int hex2int(char hex[]) {
 
-	int i = 0, dim, ris = 0, b, esp, sgn;
+	int i = 0, dim, ris = 0, b, esp, sgn=0;
 
 	if (hex[0] == '-') {
 		sgn = 1;
