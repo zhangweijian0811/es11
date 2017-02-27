@@ -1,0 +1,36 @@
+int hex2int(char hex[]) {
+	
+	int i=0, ris=0;
+	int dim, b, esp, neg;
+
+	if (hex[0] == '-') {
+		neg = 1;
+		i = 1;
+	}
+	while (hex[i]!='\0'&&hex[0]!='-'){
+		if(hex[i]>='A' && hex[i]<='F') hex[i]=hex[i]-7;
+		else if (hex[i]>='a' && hex[i]<='f') hex[i]= hex[i]-39;
+		i++;
+	}	
+	dim=conta(hex);
+	i=dim-1;
+	if (neg == 1) {
+		while (i >= 1) {
+			b = (int)((hex[dim - i]) - 48);
+			esp = power(16, i-1);
+			ris = ris + (b*esp);
+			i--;
+		}
+		ris = ris*(-1);
+	}
+	else
+	{
+		while (i >= 0) {
+			b = (int)((hex[dim - 1 - i]) - 48);
+			esp = power(16, i);
+			ris = ris + (b*esp);
+			i--;
+		}
+	}
+	return ris;
+}
