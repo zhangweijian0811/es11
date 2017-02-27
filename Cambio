@@ -1,36 +1,53 @@
-int hex2int(char hex[]) {
+int conta(char s[]){
 	
-	int i=0, ris=0;
-	int dim, b, esp, neg;
-
-	if (hex[0] == '-') {
-		neg = 1;
-		i = 1;
-	}
-	while (hex[i]!='\0'&&hex[0]!='-'){
-		if(hex[i]>='A' && hex[i]<='F') hex[i]=hex[i]-7;
-		else if (hex[i]>='a' && hex[i]<='f') hex[i]= hex[i]-39;
+	int i=0;
+	
+	while(s[i]!='\0'){
 		i++;
-	}	
-	dim=conta(hex);
-	i=dim-1;
-	if (neg == 1) {
-		while (i >= 1) {
-			b = (int)((hex[dim - i]) - 48);
-			esp = power(16, i-1);
-			ris = ris + (b*esp);
-			i--;
-		}
-		ris = ris*(-1);
 	}
-	else
-	{
-		while (i >= 0) {
-			b = (int)((hex[dim - 1 - i]) - 48);
-			esp = power(16, i);
-			ris = ris + (b*esp);
-			i--;
-		}
+	return i;
+}
+
+int power(int base, int exp){
+
+	int i,ris=1;
+	
+	for(i=0; i<exp; i++){
+		ris=ris*base;
 	}
 	return ris;
+}
+
+int hex2int(char hex[]) {
+
+	int i = 0, dim, ris = 0, b, esp, sgn;
+
+	if (hex[0] == '-') {
+		sgn = 1;
+		dim = conta(hex);
+		int i = 1;
+		while (i <= dim) {
+			hex[i - 1] = hex[i];
+			i++;
+		}
+	}
+
+	while (hex[i] != '\0') {
+		if (hex[i] >= 'A' && hex[i] <= 'F') hex[i] -= 7;
+		else if (hex[i] >= 'a' && hex[i] <= 'f') hex[i] -= 39;
+		i++;
+	}
+
+	dim = conta(hex);
+	i = dim - 1;
+
+	while (i >= 0) {
+		b = (int)((hex[dim - 1 - i]) - 48);
+		esp = power(16, i);
+		ris = ris + (b*esp);
+		i--;
+	}
+
+	if (sgn == 1) return (-ris);
+	else return ris;
 }
